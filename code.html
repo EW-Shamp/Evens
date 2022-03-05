@@ -57,17 +57,82 @@
                     <div class="col-lg-8">
                         <pre class="line-numbers">
                             <code class="language-javascript">
-                                //call hello world
-                                function helloWorld() {
-                                    alert("hello world");
+                                //Get Values from the Page
+                                //starts or controller function
+                                function getValues() {
+                                    //get values from the page
+                                    let startValue = document.getElementById("startValue").value;
+                                    let endValue = document.getElementById("endValue").value;
+                                    let numbers = [];
+                                    //Need to validate input
+                                    //Attempt to parse into integers
+                                    startValue = parseInt(startValue);
+                                    endValue = parseInt(endValue);
+                                
+                                    if (Number.isInteger(startValue) && Number.isInteger(endValue)) {
+                                        //call generateNumbers
+                                        numbers = generateNumbers(startValue, endValue);
+                                          //call displayNumbers
+                                        displayNumbers(numbers);
+                                    } else {
+                                        alert("You must enter int")
+                                    }
+                                }
+                                
+                                //generate numbers from the start value to the end value
+                                //logic function(s)
+                                function generateNumbers(sValue, eValue) {
+                                    let numbers = [];
+                                    //get all numbers from start to end
+                                    for (let i = sValue; i <= eValue; i++) {
+                                        //this will execute in loop until i === eValue
+                                        numbers.push(i);
+                                    }
+                                
+                                    return numbers;
+                                }
+                                
+                                //Display numbers and mark the even bold
+                                //display or view funtions
+                                function displayNumbers(numbers) {
+                                    let templateRows = "";
+                                    for (let index = 0; index < numbers.length; index++) {
+                                        let className = 'even'
+                                        let number = numbers[index];
+                                        if (number % 2 == 0) {
+                                            className = 'even';
+                                        } else {
+                                            className = 'odd';
+                                        }
+                                        //this does not render correctly inside of Prism
+                                        templateRows += `<tr><td class="${className}">${number}</td></tr>`;
+                                    }
+                                
+                                    document.getElementById("results").innerHTML = templateRows;
                                 }
                             </code>
                         </pre>
                     </div>
                     <div class="col-lg-4">
-                        <p>The code is structered in one function</p>
-                        <h5>hello world</h5>
-                        <p>hello world is a function that displays and alert with the message hello world</p>
+                        <p>The code is structered in three functions</p>
+                        <h5>getValues</h5>
+                        <p>This is the main function of the program. It aquires the values inputed from the user on the App page.
+                            Then parses the values from string to number. Validates that they are indeed numbers. If the entered values
+                            are not integers then it alerts the user to enter an integer. After the values are parsed
+                            and validated it calls the generateNumbers function. Finally it calls the displayNumbers function and passes the 
+                            results created in the generateNumbers function.
+                        </p>
+                        <h5>generateNumbers</h5>
+                        <p>
+                            This function steps through every number between the startValue and the endValue and pushes it to an array
+                            called numbers.
+                        </p>
+                        <h5>displayNumbers</h5>
+                        <p>
+                            This function iterates through the array, determines if the stored value is odd or even. After that it builds a string 
+                            value in templateRows including the class name for the browser to render the results of generateNumbers and if it
+                            is odd or even.
+                        </p>
                     </div>
                 </div>
             </div>
